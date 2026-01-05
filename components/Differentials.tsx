@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Clock, DollarSign, Camera, UserCheck, Target, TrendingUp } from 'lucide-react';
 
 const differentials = [
-  { icon: Clock, title: "Entrega em 48h", copy: "Da captação à publicação em dois dias úteis. Agilidade sem comprometer qualidade." },
+  { icon: Clock, title: "Entrega em 3 Dias", copy: "Da captação à publicação em três dias úteis. Agilidade sem comprometer qualidade." },
   { icon: DollarSign, title: "Custo real", copy: "70% mais acessível que produções tradicionais. Profissionalismo sem taxa de produtora." },
   { icon: Camera, title: "Qualidade técnica", copy: "Captação 4K, estabilização óptica, correção de cor profissional. Mobile não é amador." },
   { icon: UserCheck, title: "Autenticidade", copy: "Menos produzido, mais real. O público conecta com verdade, não com perfeição artificial." },

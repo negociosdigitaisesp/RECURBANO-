@@ -128,12 +128,18 @@ const Packages: React.FC = () => {
             icon={Star}
             isMobile={isMobile}
             features={[
-              "Tudo do Essencial",
-              "18 Vídeos Integrados",
+              "10 Vídeos Verticais",
+              "Planejamento Estratégico",
+              "Roteiros de Alta Conversão",
+              "Entrega em 3 Dias",
+              "Exclusividade Visual",
+              "Suporte via WhatsApp",
+              "+ 8 Vídeos Integrados",
               "Story Maker Semanal",
               "Roteiros Personalizados",
               "Direção Criativa In-Loco",
-              "Linguagem de Autoridade"
+              "Linguagem de Autoridade",
+              "18 Vídeos/Mês Total"
             ]}
             cta="Agendar Conversa"
           />
@@ -145,12 +151,22 @@ const Packages: React.FC = () => {
             icon={Crown}
             isMobile={isMobile}
             features={[
-              "Tudo do Posicionamento",
-              "30 Vídeos Premium",
+              "10 Vídeos Verticais",
+              "Planejamento Estratégico",
+              "Roteiros de Alta Conversão",
+              "Entrega em 3 Dias",
+              "Exclusividade Visual",
+              "Suporte via WhatsApp",
+              "Story Maker Semanal",
+              "Roteiros Personalizados",
+              "Direção Criativa In-Loco",
+              "Linguagem de Autoridade",
+              "+ 20 Vídeos Premium",
               "Gestão de Redes Sociais",
               "Planejamento Comercial",
               "Consultoria Mensal",
-              "Prioridade de Agenda"
+              "Prioridade de Agenda",
+              "30 Vídeos/Mês Total"
             ]}
             cta="Solicitar Análise"
           />

@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowDown, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const videos = [
-  '/port1.webm',
-  '/port2.webm',
   '/port3.webm',
   '/port4.webm',
+  '/port1.webm',
+  '/port2.webm',
   '/port5.webm',
   '/port6.webm',
 ];
