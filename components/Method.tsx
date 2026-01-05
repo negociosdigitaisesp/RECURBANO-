@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Target, PenTool, Camera, Film, Star, Zap } from 'lucide-react';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 const steps = [
   {
@@ -51,20 +52,23 @@ const steps = [
 ];
 
 const Method: React.FC = () => {
+  const isMobile = useIsMobile();
+
   return (
-    <section className="py-24 bg-[#0A0A0A] relative overflow-hidden border-t border-neutral-900">
+    <section id="method" className="py-24 bg-[#0A0A0A] relative overflow-hidden border-t border-neutral-900">
       {/* Background Subtle Grid */}
-      <div className="absolute inset-0 opacity-[0.015] pointer-events-none" 
-           style={{ backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`, backgroundSize: '60px 60px' }} 
+      <div className="absolute inset-0 opacity-[0.015] pointer-events-none"
+        style={{ backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`, backgroundSize: '60px 60px' }}
       />
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
-        
-        {/* Header - Mais Persuasivo e Alinhado */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: isMobile ? 10 : 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: isMobile ? 0.4 : 0.6 }}
           className="mb-16 border-b border-neutral-900 pb-10"
         >
           <div className="flex items-center gap-3 mb-4">
@@ -82,17 +86,25 @@ const Method: React.FC = () => {
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: -20 }}
+              // Simplified animation on mobile: opacity only, no x translation
+              initial={{ opacity: 0, x: isMobile ? 0 : -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              // Reduced delays on mobile for faster perceived load
+              transition={{ duration: isMobile ? 0.3 : 0.5, delay: isMobile ? index * 0.05 : index * 0.1 }}
               className="group relative grid grid-cols-1 md:grid-cols-[100px_1fr_220px] border border-neutral-900 bg-neutral-950/20 hover:bg-neutral-900/40 transition-all duration-500"
             >
-              {/* Coluna 1: Meta-dados (Alinhado à esquerda no mobile) */}
+              {/* Coluna 1: Meta-dados */}
               <div className="p-6 border-b md:border-b-0 md:border-r border-neutral-900 flex flex-row md:flex-col justify-start md:justify-between items-center md:items-start gap-6 md:gap-0">
-                <span className="text-5xl md:text-5xl font-clash font-bold text-transparent stroke-neutral transition-all group-hover:stroke-white duration-500">
+                <motion.span
+                  initial={{ WebkitTextStroke: '1px rgba(255,255,255,0.1)' }}
+                  whileInView={{ WebkitTextStroke: '1px rgba(255,255,255,1)' }}
+                  viewport={{ margin: "-20% 0px -20% 0px" }}
+                  transition={{ duration: 0.5 }}
+                  className="text-5xl md:text-5xl font-clash font-bold text-transparent transition-all duration-500"
+                >
                   {step.number}
-                </span>
+                </motion.span>
                 <div className="p-2.5 bg-neutral-900 rounded-lg border border-neutral-800 group-hover:bg-white transition-all duration-500">
                   <step.icon className="w-4 h-4 text-neutral-500 group-hover:text-black transition-colors" />
                 </div>
@@ -135,11 +147,14 @@ const Method: React.FC = () => {
           ))}
         </div>
 
-        {/* Nota de Encerramento */}
-        <div className="mt-16 text-left md:text-right">
-            <p className="text-neutral-700 text-[10px] uppercase tracking-[0.5em] font-black">
-                Fim do processo — Pronto para escala
-            </p>
+        {/* Nota de Encerramento e CTA */}
+        <div className="mt-16 flex flex-col md:flex-row justify-between items-center gap-8">
+          <p className="text-neutral-700 text-[10px] uppercase tracking-[0.5em] font-black">
+            Fim do processo — Pronto para escala
+          </p>
+          <a href="#packages" className="px-8 py-4 bg-white text-black text-xs font-black uppercase tracking-widest hover:bg-neutral-200 transition-colors">
+            Começar Agora
+          </a>
         </div>
 
       </div>

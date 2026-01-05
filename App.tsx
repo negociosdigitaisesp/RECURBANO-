@@ -10,18 +10,21 @@ import Packages from './components/Packages';
 import SocialProof from './components/SocialProof';
 import Footer from './components/Footer';
 
+import Header from './components/Header';
+
 const App: React.FC = () => {
   return (
     <main className="w-full bg-[#0A0A0A] text-[#FAFAFA] antialiased selection:bg-white selection:text-black">
+      <Header />
       <Hero />
       <Manifesto />
       <Method />
       <Specialists />
+      <SocialProof />
       <Portfolio />
       <Differentials />
       <Testimonials />
       <Packages />
-      <SocialProof />
       <Footer />
     </main>
   );

@@ -19,9 +19,9 @@ const Manifesto: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 md:py-40 px-6 md:px-12 bg-[#0A0A0A] border-b border-neutral-900">
+    <section id="manifesto" className="py-24 md:py-40 px-6 md:px-12 bg-[#0A0A0A] border-b border-neutral-900">
       <div className="max-w-6xl mx-auto">
-        
+
         {/* Headline Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -37,7 +37,7 @@ const Manifesto: React.FC = () => {
             VOCÊ POSTA. SEUS CONCORRENTES POSTAM. <br />
             <span className="text-neutral-700">MAS QUEM O CLIENTE LEMBRA?</span>
           </h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
             <p className="text-neutral-400 text-lg md:text-xl leading-relaxed font-light">
               O problema não é falta de conteúdo. <span className="text-white font-medium italic">É falta de estratégia.</span> Você já postou vídeos que tiveram curtidas... mas zero ligações? Já investiu em produção cara que ficou linda no feed, mas não trouxe paciente ou cliente nenhum?
@@ -51,7 +51,7 @@ const Manifesto: React.FC = () => {
         {/* Comparison Grid - UX Optimized for Mobile */}
         <div className="grid grid-cols-1 gap-4 md:gap-0 border border-neutral-900 bg-neutral-950/20">
           {comparisons.map((item, index) => (
-            <motion.div 
+            <motion.div
               key={index}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -93,16 +93,20 @@ const Manifesto: React.FC = () => {
         </div>
 
         {/* Social Proof Hook */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          className="mt-16 flex flex-col md:flex-row items-center gap-6"
+          className="mt-16 flex flex-col items-center gap-6"
         >
-          <div className="flex -space-x-4">
-            {[1,2,3].map(i => (
-              <div key={i} className="w-10 h-10 rounded-full border-2 border-black bg-neutral-800 overflow-hidden">
-                <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="Client" className="w-full h-full object-cover grayscale" />
-              </div>
+          {/* SVG Logos Row */}
+          <div className="flex items-center justify-center gap-6 md:gap-10 flex-wrap">
+            {[1, 2, 3, 4, 5].map(i => (
+              <img
+                key={i}
+                src={`/${i}.svg`}
+                alt={`Brand ${i}`}
+                className="h-8 md:h-10 w-auto opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
+              />
             ))}
           </div>
           <p className="text-neutral-500 text-xs uppercase tracking-[0.3em] font-bold">

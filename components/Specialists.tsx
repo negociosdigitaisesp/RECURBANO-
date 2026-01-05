@@ -1,21 +1,27 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Instagram, Linkedin, ArrowUpRight } from 'lucide-react';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 const Specialists: React.FC = () => {
   const containerRef = useRef(null);
+  const isMobile = useIsMobile();
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
-  // Efeito Parallax sutil para a imagem e para a moldura
-  const yImage = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const yFrame = useTransform(scrollYProgress, [0, 1], [0, 50]);
+  // Parallax disabled on mobile for performance
+  const yImage = useTransform(scrollYProgress, [0, 1], isMobile ? [0, 0] : [0, -50]);
+  const yFrame = useTransform(scrollYProgress, [0, 1], isMobile ? [0, 0] : [0, 50]);
+
+  // Grayscale to color effect on scroll (works on both mobile and desktop)
+  const grayscaleValue = useTransform(scrollYProgress, [0.2, 0.6], [1, 0]);
 
   return (
-    <section ref={containerRef} className="py-24 md:py-48 bg-[#0A0A0A] border-t border-neutral-900 relative overflow-hidden">
-      
+    <section id="specialists" ref={containerRef} className="py-24 md:py-48 bg-[#0A0A0A] border-t border-neutral-900 relative overflow-hidden">
+
       {/* Background Decorative Watermark */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 select-none pointer-events-none opacity-[0.03] whitespace-nowrap">
         <span className="text-[25vw] font-clash font-bold leading-none uppercase tracking-tighter">
@@ -25,11 +31,11 @@ const Specialists: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 md:gap-32 items-center">
-          
+
           {/* Coluna da Imagem com Design Assimétrico */}
           <div className="relative">
             {/* Moldura Flutuante (Background Frame) */}
-            <motion.div 
+            <motion.div
               style={{ y: yFrame }}
               className="absolute -inset-4 border border-white/10 rounded-tr-[120px] rounded-bl-[120px] z-0"
             />
@@ -40,24 +46,26 @@ const Specialists: React.FC = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: isMobile ? 0.6 : 1.2, ease: [0.22, 1, 0.36, 1] }}
               className="relative z-10 aspect-[4/5] overflow-hidden rounded-tr-[160px] rounded-bl-[160px] bg-neutral-900 shadow-2xl"
             >
               {/* Overlay de gradiente para fusão na base */}
               <div className="absolute inset-0 z-20 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-60" />
-              
-              <img 
-                src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200&auto=format&fit=crop" 
+
+              <motion.img
+                src="/jorge sem fundo png.png"
                 alt="Jorge Castro"
-                className="w-full h-full object-cover grayscale transition-all duration-1000 hover:grayscale-0 hover:scale-105"
+                style={{ filter: useTransform(grayscaleValue, (v) => `grayscale(${v})`) }}
+                className="w-full h-full object-contain object-bottom transition-transform duration-700 hover:scale-105"
               />
             </motion.div>
 
             {/* Badge Flutuante Minimalista */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5 }}
+              viewport={{ once: true }}
+              transition={{ delay: isMobile ? 0.2 : 0.5 }}
               className="absolute -bottom-10 -right-4 md:right-10 z-30 bg-white p-6 md:p-8 shadow-2xl"
             >
               <div className="space-y-1">
@@ -70,10 +78,10 @@ const Specialists: React.FC = () => {
 
           {/* Coluna de Texto */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: isMobile ? 20 : 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: isMobile ? 0.5 : 0.8, delay: isMobile ? 0.1 : 0.3 }}
           >
             <div className="flex items-center gap-4 mb-8">
               <span className="h-px w-12 bg-neutral-800"></span>
@@ -89,10 +97,10 @@ const Specialists: React.FC = () => {
               <p className="text-neutral-400 font-light leading-relaxed text-lg md:text-xl">
                 O "olho" da operação <span className="text-white font-medium">RECURBANO</span>. Especialista em traduzir a essência de marcas premium em narrativas magnéticas que não apenas ocupam espaço, mas dominam mercados.
               </p>
-              
+
               <div className="grid grid-cols-2 gap-8 py-8 border-y border-neutral-900">
                 <div>
-                  <h4 className="text-white font-clash font-bold text-2xl mb-1">8+ ANOS</h4>
+                  <h4 className="text-white font-clash font-bold text-2xl mb-1">4+ ANOS</h4>
                   <p className="text-neutral-600 text-[10px] uppercase tracking-widest font-black">De Experiência</p>
                 </div>
                 <div>
@@ -116,17 +124,23 @@ const Specialists: React.FC = () => {
                   <Linkedin size={20} />
                 </a>
               </div>
-              
+
               <a href="#" className="group flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.5em] text-white hover:opacity-70 transition-all">
                 Conheça a Jornada
                 <ArrowUpRight size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </a>
             </div>
+
+            <div className="mt-10">
+              <a href="#packages" className="inline-block px-8 py-4 bg-white text-black text-xs font-black uppercase tracking-widest hover:bg-neutral-200 transition-colors">
+                AGENDAR CONSULTORIA ESTRATÉGICA
+              </a>
+            </div>
           </motion.div>
 
         </div>
-      </div>
-    </section>
+      </div >
+    </section >
   );
 };
 

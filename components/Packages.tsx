@@ -1,6 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Check, Star, Zap, Crown, ArrowRight } from 'lucide-react';
+import { useIsMobile } from '../hooks/useIsMobile';
+
+const WHATSAPP_LINK = "https://wa.link/7ibz86";
 
 interface PackageProps {
   title: string;
@@ -10,19 +13,20 @@ interface PackageProps {
   cta: string;
   isPopular?: boolean;
   icon: React.ElementType;
+  isMobile: boolean;
 }
 
-const PackageCard: React.FC<PackageProps> = ({ title, subtitle, price, features, cta, isPopular, icon: Icon }) => (
+const PackageCard: React.FC<PackageProps> = ({ title, subtitle, price, features, cta, isPopular, icon: Icon, isMobile }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    whileHover={{ y: -10 }}
-    transition={{ duration: 0.5 }}
+    whileHover={isMobile ? undefined : { y: -10 }}
+    transition={{ duration: isMobile ? 0.4 : 0.5 }}
     className={`
       relative p-8 flex flex-col justify-between h-full border transition-all duration-500 group
-      ${isPopular 
-        ? 'bg-white text-black border-white shadow-[0_20px_50px_rgba(255,255,255,0.1)]' 
+      ${isPopular
+        ? 'bg-white text-black border-white shadow-[0_20px_50px_rgba(255,255,255,0.1)]'
         : 'bg-neutral-950/50 text-white border-neutral-900 hover:border-neutral-700'}
     `}
   >
@@ -42,7 +46,7 @@ const PackageCard: React.FC<PackageProps> = ({ title, subtitle, price, features,
         </div>
         <Icon size={24} className={isPopular ? 'text-black' : 'text-neutral-700'} />
       </div>
-      
+
       <div className="mb-10">
         <div className="flex items-baseline gap-1">
           <span className="text-sm font-bold opacity-60">R$</span>
@@ -63,27 +67,34 @@ const PackageCard: React.FC<PackageProps> = ({ title, subtitle, price, features,
       </ul>
     </div>
 
-    <button className={`
-      w-full py-5 flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-300
-      ${isPopular 
-        ? 'bg-black text-white hover:bg-neutral-800' 
-        : 'bg-white text-black hover:bg-neutral-200'}
-    `}>
+    <a
+      href={WHATSAPP_LINK}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`
+        w-full py-5 flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-300
+        ${isPopular
+          ? 'bg-black text-white hover:bg-neutral-800'
+          : 'bg-white text-black hover:bg-neutral-200'}
+      `}
+    >
       {cta}
       <ArrowRight size={14} />
-    </button>
+    </a>
   </motion.div>
 );
 
 const Packages: React.FC = () => {
+  const isMobile = useIsMobile();
+
   return (
-    <section className="py-24 md:py-40 bg-[#0A0A0A] relative overflow-hidden">
+    <section id="packages" className="py-24 md:py-40 bg-[#0A0A0A] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        
+
         <div className="max-w-3xl mb-20">
           <div className="flex items-center gap-3 mb-6">
             <span className="h-px w-8 bg-neutral-800"></span>
-            <span className="text-[10px] tracking-[0.5em] text-neutral-500 uppercase font-black">Investment Plans</span>
+            <span className="text-[10px] tracking-[0.5em] text-neutral-500 uppercase font-black">Planos de Investimento</span>
           </div>
           <h2 className="text-4xl md:text-7xl font-clash font-bold leading-[1.1] tracking-[0.05em] [word-spacing:0.25em] uppercase">
             ESCOLHA SEU <br />
@@ -92,11 +103,12 @@ const Packages: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <PackageCard 
+          <PackageCard
             title="Essencial"
             subtitle="De invisível a presente"
             price="700"
             icon={Zap}
+            isMobile={isMobile}
             features={[
               "10 Vídeos Verticais",
               "Planejamento Estratégico",
@@ -108,12 +120,13 @@ const Packages: React.FC = () => {
             cta="Começar Agora"
           />
 
-          <PackageCard 
+          <PackageCard
             title="Posicionamento"
             subtitle="De presente a lembrado"
             price="970"
             isPopular={true}
             icon={Star}
+            isMobile={isMobile}
             features={[
               "Tudo do Essencial",
               "18 Vídeos Integrados",
@@ -125,11 +138,12 @@ const Packages: React.FC = () => {
             cta="Agendar Conversa"
           />
 
-          <PackageCard 
+          <PackageCard
             title="Autoridade"
             subtitle="Referência Incontestável"
             price="2.000"
             icon={Crown}
+            isMobile={isMobile}
             features={[
               "Tudo do Posicionamento",
               "30 Vídeos Premium",
@@ -141,19 +155,12 @@ const Packages: React.FC = () => {
             cta="Solicitar Análise"
           />
         </div>
-        
+
         <div className="mt-16 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-neutral-900 pt-8">
           <p className="text-neutral-700 text-[10px] uppercase tracking-[0.4em] font-black">
             *Investimento sem fidelidade — cancelamento livre.
           </p>
-          <div className="flex items-center gap-4">
-             <div className="flex -space-x-2">
-                {[1,2,3].map(i => (
-                  <div key={i} className="w-8 h-8 rounded-full border-2 border-black bg-neutral-800" />
-                ))}
-             </div>
-             <span className="text-neutral-500 text-[9px] uppercase tracking-widest font-bold">12 vagas disponíveis para este mês</span>
-          </div>
+          <span className="text-neutral-500 text-[9px] uppercase tracking-widest font-bold">12 vagas disponíveis para este mês</span>
         </div>
 
       </div>
