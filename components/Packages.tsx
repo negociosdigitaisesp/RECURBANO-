@@ -106,7 +106,7 @@ const Packages: React.FC = () => {
           <PackageCard
             title="Essencial"
             subtitle="De invisível a presente"
-            price="700"
+            price="600"
             icon={Zap}
             isMobile={isMobile}
             features={[
@@ -147,7 +147,7 @@ const Packages: React.FC = () => {
           <PackageCard
             title="Autoridade"
             subtitle="Referência Incontestável"
-            price="2.000"
+            price="1.700"
             icon={Crown}
             isMobile={isMobile}
             features={[
