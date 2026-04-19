@@ -49,9 +49,9 @@ const PackageCard: React.FC<PackageProps> = ({ title, subtitle, price, features,
 
       <div className="mb-10">
         <div className="flex items-baseline gap-1">
-          <span className="text-sm font-bold opacity-60">R$</span>
-          <span className="text-5xl font-clash font-bold tracking-tighter">{price}</span>
-          <span className="text-[10px] uppercase font-black opacity-40">/mês</span>
+          {price !== 'Personalizado' && <span className="text-sm font-bold opacity-60">R$</span>}
+          <span className={price === 'Personalizado' ? 'text-xl font-sans font-normal uppercase tracking-[0.2em] opacity-70 py-[10px]' : 'text-5xl font-clash font-bold tracking-tighter'}>{price}</span>
+          {price !== 'Personalizado' && <span className="text-[10px] uppercase font-black opacity-40">/mês</span>}
         </div>
       </div>
 
@@ -106,7 +106,7 @@ const Packages: React.FC = () => {
           <PackageCard
             title="Essencial"
             subtitle="De invisível a presente"
-            price="600"
+            price="700"
             icon={Zap}
             isMobile={isMobile}
             features={[
@@ -123,50 +123,42 @@ const Packages: React.FC = () => {
           <PackageCard
             title="Posicionamento"
             subtitle="De presente a lembrado"
-            price="970"
+            price="1000"
             isPopular={true}
             icon={Star}
             isMobile={isMobile}
             features={[
-              "10 Vídeos Verticais",
+              "18 Vídeos Verticais",
               "Planejamento Estratégico",
               "Roteiros de Alta Conversão",
               "Entrega em 3 Dias",
               "Exclusividade Visual",
               "Suporte via WhatsApp",
-              "+ 8 Vídeos Integrados",
               "Story Maker Semanal",
               "Roteiros Personalizados",
               "Direção Criativa In-Loco",
-              "Linguagem de Autoridade",
-              "18 Vídeos/Mês Total"
+              "Linguagem de Autoridade"
             ]}
             cta="Agendar Conversa"
           />
 
           <PackageCard
-            title="Autoridade"
-            subtitle="Referência Incontestável"
-            price="1.700"
+            title="Exclusive"
+            subtitle="Para marcas que exigem mais"
+            price="Personalizado"
             icon={Crown}
             isMobile={isMobile}
             features={[
-              "10 Vídeos Verticais",
-              "Planejamento Estratégico",
+              "Estratégia Sob Medida",
+              "Quantidade de Vídeos Flexível",
+              "Direção Estrategica",
               "Roteiros de Alta Conversão",
-              "Entrega em 3 Dias",
+              "Estrategia Personalizada para Alcance Viral",
               "Exclusividade Visual",
-              "Suporte via WhatsApp",
-              "Story Maker Semanal",
-              "Roteiros Personalizados",
-              "Direção Criativa In-Loco",
-              "Linguagem de Autoridade",
-              "+ 20 Vídeos Premium",
+              "Suporte Premium via WhatsApp",
               "Gestão de Redes Sociais",
-              "Planejamento Comercial",
               "Consultoria Mensal",
-              "Prioridade de Agenda",
-              "30 Vídeos/Mês Total"
+              "Prioridade de Agenda"
             ]}
             cta="Solicitar Análise"
           />
